@@ -7,8 +7,6 @@ import com.pietro.hexagonal.adapters.dtos.entrada.PessoaRequestDto;
 import com.pietro.hexagonal.adapters.dtos.saida.PessoaResponseDto;
 import com.pietro.hexagonal.adapters.outbound.persistence.entities.PessoaEntity;
 import com.pietro.hexagonal.core.domain.PessoaDomain;
-import com.pietro.hexagonal.core.domain.ResultadoPaginado;
-import com.pietro.hexagonal.core.domain.ResultadoPaginadoResponseDto;
 
 @Mapper(componentModel = "spring")
 public interface PessoaMapper {
@@ -24,14 +22,4 @@ public interface PessoaMapper {
     // Entity - Domain
     PessoaEntity toPessoaEntity(PessoaDomain pessoaDomain);
     PessoaDomain toPessoaDomain(PessoaEntity pessoaEntity);
-
-
-    // Novo método para o retorno paginado
-    @Mapping(source = "itens", target = "itens") // O MapStruct lida com a lista automaticamente
-    @Mapping(source = "paginaAtual", target = "paginaAtual")
-    @Mapping(source = "totalPaginas", target = "totalPaginas")
-    @Mapping(source = "totalElementos", target = "totalElementos")
-    ResultadoPaginadoResponseDto<PessoaResponseDto> toResultadoPaginadoResponseDto(
-        ResultadoPaginado<PessoaDomain> resultadoPaginado);
-
 }

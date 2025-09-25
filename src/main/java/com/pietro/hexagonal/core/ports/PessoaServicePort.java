@@ -1,6 +1,5 @@
 package com.pietro.hexagonal.core.ports;
 
-import com.pietro.hexagonal.core.domain.PaginacaoRequest;
 import com.pietro.hexagonal.core.domain.PessoaDomain;
 
 import java.util.List;
