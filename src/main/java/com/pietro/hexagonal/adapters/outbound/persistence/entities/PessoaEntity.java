@@ -7,10 +7,10 @@ import lombok.Data;
 import java.io.Serializable;
 import java.util.UUID;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
 @Entity
 @Table(name = "pessoa")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class PessoaEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;

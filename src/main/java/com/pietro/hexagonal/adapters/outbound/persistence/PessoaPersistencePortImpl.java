@@ -4,7 +4,6 @@ import com.pietro.hexagonal.adapters.outbound.persistence.entities.PessoaEntity;
 import com.pietro.hexagonal.core.domain.PageInfo;
 import com.pietro.hexagonal.core.domain.PessoaDomain;
 import com.pietro.hexagonal.core.ports.PessoaPersistencePort;
-import lombok.Setter;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
