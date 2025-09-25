@@ -10,11 +10,8 @@ import java.util.List;
  *
  * Essa classe precisaria do @Service do Lombok, mas como está dentro do CORE da aplicação precisamos criar o Bean manualmente.
  * Faremos essa configuração em um Adapter de Configuração Específico.
- * Essa classe também utilizava o repository do jpa diretamente, porém como ele está dentro do core, ele só pode se comunicar com portas
- * Onde tiver Page, como estamos no core só podemos usar PageInfo (Lembrando)
  *
  **/
-
 
 public class PessoaServicePortImpl implements PessoaServicePort {
 

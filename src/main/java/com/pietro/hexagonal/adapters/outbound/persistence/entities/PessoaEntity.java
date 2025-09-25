@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Set;
 import java.util.UUID;
 
 @Data
@@ -24,5 +25,10 @@ public class PessoaEntity implements Serializable {
     private String email;
     @Column(nullable = false, length = 30)
     private String cpf;
+
+    // Por padrão o JPA é Lazy em One to Many. Ele só buscará se em um método Transactional você tentar acessar o recurso.
+
+    @OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<LivroEntity> livros;
 
 }

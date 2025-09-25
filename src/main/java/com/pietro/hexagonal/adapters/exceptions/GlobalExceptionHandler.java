@@ -51,4 +51,16 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(apiError, HttpStatus.TOO_EARLY);
     }
 
+    @ExceptionHandler(NotFoundCustomException.class)
+    public ResponseEntity<ApiError> handleNotFoundCustomException(NotFoundCustomException ex, WebRequest request) {
+        ApiError apiError = new ApiError(
+            HttpStatus.NOT_FOUND.value(),
+            HttpStatus.NOT_FOUND.getReasonPhrase(),
+            // Substitua a string "teste" por ex.getMessage()
+            ex.getMessage(),
+            request.getDescription(false).substring(4)
+        );
+        return new ResponseEntity<>(apiError, HttpStatus.NOT_FOUND);
+    }    
+
 }

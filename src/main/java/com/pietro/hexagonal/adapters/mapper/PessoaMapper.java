@@ -20,6 +20,7 @@ public interface PessoaMapper {
     @Mapping(target = "id", ignore = true )
     PessoaDomain toPessoaDomain(PessoaRequestDto pessoaRequestDto);
     // Entity - Domain
+    @Mapping(target = "livros", ignore = true )
     PessoaEntity toPessoaEntity(PessoaDomain pessoaDomain);
     PessoaDomain toPessoaDomain(PessoaEntity pessoaEntity);
 }

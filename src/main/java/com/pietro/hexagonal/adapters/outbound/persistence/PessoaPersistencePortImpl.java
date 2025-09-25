@@ -22,7 +22,7 @@ public class PessoaPersistencePortImpl implements PessoaPersistencePort {
         this.pessoaMapper = pessoaMapper;
     }
 
-    // Métoos de escrita precisam do @Transactional.
+    // Métodos de escrita precisam do @Transactional.
 
     @Override
     @Transactional

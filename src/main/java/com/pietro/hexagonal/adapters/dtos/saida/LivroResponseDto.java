@@ -12,8 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PessoaResponseDto {
+public class LivroResponseDto {
     private UUID id;
-    private String nome;
-    private String email;   
+    private String titulo; 
 }

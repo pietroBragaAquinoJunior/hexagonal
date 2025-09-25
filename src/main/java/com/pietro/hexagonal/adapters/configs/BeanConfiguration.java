@@ -1,9 +1,10 @@
 package com.pietro.hexagonal.adapters.configs;
 
 import com.pietro.hexagonal.HexagonalApplication;
+import com.pietro.hexagonal.core.ports.LivroPersistencePort;
 import com.pietro.hexagonal.core.ports.PessoaPersistencePort;
+import com.pietro.hexagonal.core.services.LivroServicePortImpl;
 import com.pietro.hexagonal.core.services.PessoaServicePortImpl;
-import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -24,9 +25,9 @@ public class BeanConfiguration {
         return new PessoaServicePortImpl(pessoaPersistencePort);
     }
 
-    @Bean
-    public ModelMapper modelMapper() {
-        return new ModelMapper();
+   @Bean
+    LivroServicePortImpl livroServicePortImpl(LivroPersistencePort livroPersistencePort) {
+        return new LivroServicePortImpl(livroPersistencePort);
     }
 
 }
