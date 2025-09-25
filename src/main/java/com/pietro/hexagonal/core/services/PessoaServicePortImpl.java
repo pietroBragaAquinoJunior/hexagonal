@@ -1,10 +1,13 @@
 package com.pietro.hexagonal.core.services;
 
 import com.pietro.hexagonal.core.domain.PessoaDomain;
+import com.pietro.hexagonal.core.domain.PontuacaoDomain;
+import com.pietro.hexagonal.core.domain.exceptions.RecursoNaoEncontradoException;
 import com.pietro.hexagonal.core.ports.PessoaPersistencePort;
 import com.pietro.hexagonal.core.ports.PessoaServicePort;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  *
@@ -31,4 +34,18 @@ public class PessoaServicePortImpl implements PessoaServicePort {
         return pessoaPersistencePort.findAll();
     }
 
+    @Override
+    public PontuacaoDomain calcularPontuacao(UUID pessoaId) {
+        PessoaDomain pessoaDomain = pessoaPersistencePort.findByIdWithLivros(pessoaId);
+
+        Integer pontuacao = 0;
+
+        if(pessoaDomain.getLivros().isEmpty()){
+            throw new RecursoNaoEncontradoException("Essa pessoa não possui livros.");
+        }
+
+        pontuacao = pessoaDomain.getLivros().size();
+
+        return new PontuacaoDomain(pontuacao);
+    }
 }

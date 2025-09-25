@@ -3,6 +3,7 @@ package com.pietro.hexagonal.adapters.outbound.persistence;
 import com.pietro.hexagonal.adapters.mapper.PessoaMapper;
 import com.pietro.hexagonal.adapters.outbound.persistence.entities.PessoaEntity;
 import com.pietro.hexagonal.core.domain.PessoaDomain;
+import com.pietro.hexagonal.core.domain.exceptions.RecursoNaoEncontradoException;
 import com.pietro.hexagonal.core.ports.PessoaPersistencePort;
 
 import jakarta.transaction.Transactional;
@@ -10,6 +11,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class PessoaPersistencePortImpl implements PessoaPersistencePort {
@@ -41,4 +43,14 @@ public class PessoaPersistencePortImpl implements PessoaPersistencePort {
                                                 .toList();
         return pessoaDomainList;
     }
+
+    @Override
+    public PessoaDomain findByIdWithLivros(UUID pessoaId) {
+        PessoaEntity pessoaEntity = pessoaJpaRepository.findByIdWithLivros(pessoaId)
+                                    .orElseThrow(() -> new RecursoNaoEncontradoException("Não foi possível encontrar a Pessoa."));
+        PessoaDomain pessoaDomain = pessoaMapper.toPessoaDomain(pessoaEntity);
+        return pessoaDomain;
+    }
+
+    
 }

@@ -4,12 +4,11 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
-
-import com.pietro.hexagonal.adapters.exceptions.NotFoundCustomException;
 import com.pietro.hexagonal.adapters.mapper.LivroMapper;
 import com.pietro.hexagonal.adapters.outbound.persistence.entities.LivroEntity;
 import com.pietro.hexagonal.adapters.outbound.persistence.entities.PessoaEntity;
 import com.pietro.hexagonal.core.domain.LivroDomain;
+import com.pietro.hexagonal.core.domain.exceptions.RecursoNaoEncontradoException;
 import com.pietro.hexagonal.core.ports.LivroPersistencePort;
 
 import jakarta.transaction.Transactional;
@@ -33,7 +32,7 @@ public class LivroPersistencePortImpl implements LivroPersistencePort {
     @Transactional
     public LivroDomain saveLivro(UUID pessoaId, LivroDomain livroDomain) {
         PessoaEntity pessoaEntity = pessoaJpaRepository.findById(pessoaId)
-                                        .orElseThrow(() -> new NotFoundCustomException("Não foi possível encontrar a Pessoa."));
+                                        .orElseThrow(() -> new RecursoNaoEncontradoException("Não foi possível encontrar a Pessoa."));
         LivroEntity livroEntity = livroMapper.toLivroEntity(livroDomain);
         livroEntity.setPessoa(pessoaEntity);
         LivroEntity livroEntitySaved = livroJpaRepository.save(livroEntity);

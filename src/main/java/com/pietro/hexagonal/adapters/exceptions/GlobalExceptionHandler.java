@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
+import com.pietro.hexagonal.core.domain.exceptions.RecursoNaoEncontradoException;
+
 // Esse handler com MethodArgumentNotValidException é necessário para pegar as mensagens do @Valid (validator)
 // No RequestDto para a mensagem aparecer de forma mais amigável ao cliente. Uso o ApiError para aparecer muito mais que somente a mensagem.
 
@@ -32,35 +34,16 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
     }
 
-    // Para testar se esse ExceptionHandler com MinhaExcecaoCustom está realmente capturando globamente exceções desse tipo,
-    // Coloque isso em qualquer lugar para testar :
-    //      if(true){
-    //          throw new MinhaExcecaoCustom("Essa é minha exceção customizada!, O handler colocará o Status adequado.");
-    //      }
-    // Botei o Status TOO_EARLY, só para você não se afobar...
-
-    @ExceptionHandler(MinhaExcecaoCustom.class)
-    public ResponseEntity<ApiError> handleMinhaExcecaoCustom(MinhaExcecaoCustom ex, WebRequest request) {
-        ApiError apiError = new ApiError(
-            HttpStatus.TOO_EARLY.value(),
-            HttpStatus.TOO_EARLY.getReasonPhrase(),
-            // Substitua a string "teste" por ex.getMessage()
-            ex.getMessage(),
-            request.getDescription(false).substring(4)
-        );
-        return new ResponseEntity<>(apiError, HttpStatus.TOO_EARLY);
-    }
-
-    @ExceptionHandler(NotFoundCustomException.class)
-    public ResponseEntity<ApiError> handleNotFoundCustomException(NotFoundCustomException ex, WebRequest request) {
+    // Tratar uma exceção customizada que deverá ser lançada pelo DOMÍNIO.
+    @ExceptionHandler(RecursoNaoEncontradoException.class)
+    public ResponseEntity<ApiError> handleRecursoNaoEncontradoException(RecursoNaoEncontradoException ex, WebRequest request) {
         ApiError apiError = new ApiError(
             HttpStatus.NOT_FOUND.value(),
             HttpStatus.NOT_FOUND.getReasonPhrase(),
-            // Substitua a string "teste" por ex.getMessage()
             ex.getMessage(),
             request.getDescription(false).substring(4)
         );
         return new ResponseEntity<>(apiError, HttpStatus.NOT_FOUND);
-    }    
+    }
 
 }
