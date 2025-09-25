@@ -1,12 +1,12 @@
 package com.pietro.hexagonal.adapters.outbound.persistence;
 
+import com.pietro.hexagonal.adapters.mapper.PessoaMapper;
 import com.pietro.hexagonal.adapters.outbound.persistence.entities.PessoaEntity;
-import com.pietro.hexagonal.core.domain.PageInfo;
 import com.pietro.hexagonal.core.domain.PessoaDomain;
 import com.pietro.hexagonal.core.ports.PessoaPersistencePort;
-import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+
+import jakarta.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,22 +15,30 @@ import java.util.List;
 public class PessoaPersistencePortImpl implements PessoaPersistencePort {
 
     private final PessoaJpaRepository pessoaJpaRepository;
-    private final ModelMapper modelMapper;
+    private final PessoaMapper pessoaMapper;
 
-    public PessoaPersistencePortImpl(PessoaJpaRepository pessoaJpaRepository, ModelMapper modelMapper) {
+    public PessoaPersistencePortImpl(PessoaJpaRepository pessoaJpaRepository, PessoaMapper pessoaMapper) {
         this.pessoaJpaRepository = pessoaJpaRepository;
-        this.modelMapper = modelMapper;
+        this.pessoaMapper = pessoaMapper;
     }
 
+    // Métoos de escrita precisam do @Transactional.
+
     @Override
+    @Transactional
     public PessoaDomain savePessoa(PessoaDomain pessoaDomain) {
-        PessoaEntity pessoaEntitySalva = pessoaJpaRepository.save(modelMapper.map(pessoaDomain, PessoaEntity.class));
-        return modelMapper.map(pessoaEntitySalva, PessoaDomain.class);
+        PessoaEntity pessoaEntity = pessoaMapper.toPessoaEntity(pessoaDomain);
+        PessoaEntity pessoaEntitySaved = pessoaJpaRepository.save(pessoaEntity);
+        PessoaDomain pessoaDomainSaved = pessoaMapper.toPessoaDomain(pessoaEntitySaved);
+        return pessoaDomainSaved;
     }
 
     @Override
-    public List<PessoaDomain> findAll(PageInfo pageInfo) {
-        Pageable pageable = PageRequest.of(pageInfo.getPageNumber(), pageInfo.getPageSize());
-        return pessoaJpaRepository.findAll(pageable).stream().map(pessoaEntity -> modelMapper.map(pessoaEntity, PessoaDomain.class)).toList();
+    public List<PessoaDomain> findAll() {
+        List<PessoaEntity> pessoaEntityList = pessoaJpaRepository.findAll();
+        List<PessoaDomain> pessoaDomainList = pessoaEntityList.stream()
+                                                .map(pessoaEntity -> pessoaMapper.toPessoaDomain(pessoaEntity))
+                                                .toList();
+        return pessoaDomainList;
     }
 }

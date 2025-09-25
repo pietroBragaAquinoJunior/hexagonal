@@ -1,6 +1,5 @@
 package com.pietro.hexagonal.core.services;
 
-import com.pietro.hexagonal.core.domain.PageInfo;
 import com.pietro.hexagonal.core.domain.PessoaDomain;
 import com.pietro.hexagonal.core.ports.PessoaPersistencePort;
 import com.pietro.hexagonal.core.ports.PessoaServicePort;
@@ -31,8 +30,8 @@ public class PessoaServicePortImpl implements PessoaServicePort {
     }
 
     @Override
-    public List<PessoaDomain> findAll(PageInfo pageable) {
-        return pessoaPersistencePort.findAll(pageable);
+    public List<PessoaDomain> findAll() {
+        return pessoaPersistencePort.findAll();
     }
 
 }

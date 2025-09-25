@@ -1,11 +1,13 @@
 package com.pietro.hexagonal.adapters.inbound.controllers;
 
-import com.pietro.hexagonal.adapters.dtos.entrada.PessoaDto;
-import com.pietro.hexagonal.core.domain.PageInfo;
+import com.pietro.hexagonal.adapters.dtos.entrada.PessoaRequestDto;
+import com.pietro.hexagonal.adapters.dtos.saida.PessoaResponseDto;
+import com.pietro.hexagonal.adapters.mapper.PessoaMapper;
 import com.pietro.hexagonal.core.domain.PessoaDomain;
 import com.pietro.hexagonal.core.ports.PessoaServicePort;
-import org.springframework.beans.BeanUtils;
-import org.springframework.data.domain.Pageable;
+
+import jakarta.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,27 +15,35 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
+@RequestMapping("/pessoas")
 public class PessoaController {
 
     private final PessoaServicePort pessoaServicePort;
+    private final PessoaMapper pessoaMapper;
 
-    public PessoaController(PessoaServicePort pessoaServicePort) {
+    public PessoaController(PessoaServicePort pessoaServicePort, PessoaMapper pessoaMapper) {
         this.pessoaServicePort = pessoaServicePort;
+        this.pessoaMapper = pessoaMapper;
     }
 
-    @PostMapping("/pessoas")
-    public ResponseEntity<PessoaDomain> salvarPessoa(@RequestBody PessoaDto pessoaDto) {
-        PessoaDomain pessoaDomain = new PessoaDomain();
-        BeanUtils.copyProperties(pessoaDto, pessoaDomain);
-        return ResponseEntity.ok(pessoaServicePort.savePessoa(pessoaDomain));
+    @GetMapping
+    public ResponseEntity<List<PessoaResponseDto>> listarPessoas() {
+        // if(true){
+        //     throw new MinhaExcecaoCustom("Essa é minha exceção customizada!, O handler colocará o Status adequado. Não se afobe...");
+        // }
+        List<PessoaDomain> pessoaDomainList = pessoaServicePort.findAll();
+        List<PessoaResponseDto> pessoaResponseDtos = pessoaDomainList.stream()
+                                                    .map(pessoaDomain -> pessoaMapper.toPessoaResponseDto(pessoaDomain))
+                                                    .toList();
+        return ResponseEntity.ok(pessoaResponseDtos);
     }
 
-    @GetMapping("/pessoas")
-    public ResponseEntity<List<PessoaDomain>> listarPessoas(Pageable pageable) {
-        PageInfo pageInfo = new PageInfo();
-        BeanUtils.copyProperties(pageable, pageInfo);
-        List<PessoaDomain> pessoaDomainList = pessoaServicePort.findAll(pageInfo);
-        return ResponseEntity.ok(pessoaDomainList);
+    @PostMapping
+    public ResponseEntity<PessoaResponseDto> salvarPessoa(@Valid @RequestBody PessoaRequestDto pessoaRequestDto) {
+        PessoaDomain pessoaDomain = pessoaMapper.toPessoaDomain(pessoaRequestDto);
+        PessoaDomain pessoaDomainSaved = pessoaServicePort.savePessoa(pessoaDomain);
+        PessoaResponseDto pessoaResponseDto = pessoaMapper.toPessoaResponseDto(pessoaDomainSaved);
+        return ResponseEntity.ok(pessoaResponseDto);
     }
 
 }

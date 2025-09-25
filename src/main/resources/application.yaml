@@ -1,4 +1,7 @@
 spring:
+  data:
+    rest:
+      base-path: /api
   datasource:
     url: jdbc:postgresql://localhost:5432/hexagonal_db
     username: postgres
