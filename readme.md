@@ -32,8 +32,68 @@ System.out.println(" This project discusses the **N+1 problem** and demonstrates
 
 ---
 ### Global Exception Handling with ApiError Class
-<img width="1093" height="617" alt="image" src="https://github.com/user-attachments/assets/dc45f35b-20e9-4581-a4c2-3320da02acc8" />
-<img width="973" height="708" alt="image" src="https://github.com/user-attachments/assets/4824d5d5-bd93-4035-81a3-01fd95f1c08f" />
+```java
+
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ApiError> handleValidationExceptions(MethodArgumentNotValidException ex, WebRequest request) {
+        Map<String, String> details = new HashMap<>();
+        ex.getBindingResult().getFieldErrors().forEach(error ->
+            details.put(error.getField(), error.getDefaultMessage()));
+
+        ApiError apiError = new ApiError(
+            HttpStatus.BAD_REQUEST.value(),
+            HttpStatus.BAD_REQUEST.getReasonPhrase(),
+            "Campos inválidos na requisição.",
+            request.getDescription(false).substring(4),
+            details
+        );
+        return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(RecursoNaoEncontradoException.class)
+    public ResponseEntity<ApiError> handleRecursoNaoEncontradoException(RecursoNaoEncontradoException ex, WebRequest request) {
+        ApiError apiError = new ApiError(
+            HttpStatus.NOT_FOUND.value(),
+            HttpStatus.NOT_FOUND.getReasonPhrase(),
+            ex.getMessage(),
+            request.getDescription(false).substring(4)
+        );
+        return new ResponseEntity<>(apiError, HttpStatus.NOT_FOUND);
+    }
+}
+
+@Getter
+@Setter
+@NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class ApiError {
+
+    private LocalDateTime timestamp;
+    private int status;
+    private String error;
+    private String message;
+    private String path;
+    private Map<String, String> details;
+
+    public ApiError(int status, String error, String message, String path) {
+        this.timestamp = LocalDateTime.now();
+        this.status = status;
+        this.error = error;
+        this.message = message;
+        this.path = path;
+    }
+
+    public ApiError(int status, String error, String message, String path, Map<String, String> details) {
+        this(status, error, message, path);
+        this.details = details;
+    }
+}
+
+```
+
+
 
 ---
 ### Database Migrations using Flyway
