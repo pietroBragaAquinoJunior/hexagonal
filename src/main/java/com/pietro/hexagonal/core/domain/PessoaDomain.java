@@ -3,8 +3,6 @@ package com.pietro.hexagonal.core.domain;
 import java.util.Set;
 import java.util.UUID;
 
-import com.pietro.hexagonal.adapters.outbound.persistence.entities.ViagemEntity;
-
 /**
  * Sem tecnologia, está no core.
  * Não é exatamente igual a entidade do banco. Os relacionamentos só devem aparecer aqui se houver regras de negócio
@@ -18,11 +16,12 @@ public class PessoaDomain {
     private String email;
     private String cpf;
     private Set<LivroDomain> livros;
-    private Set<ViagemEntity> viagens;
+    private Set<ViagemDomain> viagens;
     public PessoaDomain() {
     }
+
     public PessoaDomain(UUID id, String nome, String email, String cpf, Set<LivroDomain> livros,
-            Set<ViagemEntity> viagens) {
+            Set<ViagemDomain> viagens) {
         this.id = id;
         this.nome = nome;
         this.email = email;
@@ -30,6 +29,7 @@ public class PessoaDomain {
         this.livros = livros;
         this.viagens = viagens;
     }
+
     public UUID getId() {
         return id;
     }
@@ -60,11 +60,12 @@ public class PessoaDomain {
     public void setLivros(Set<LivroDomain> livros) {
         this.livros = livros;
     }
-    public Set<ViagemEntity> getViagens() {
+    public Set<ViagemDomain> getViagens() {
         return viagens;
     }
-    public void setViagens(Set<ViagemEntity> viagens) {
+    public void setViagens(Set<ViagemDomain> viagens) {
         this.viagens = viagens;
     }
+   
    
 }

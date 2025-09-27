@@ -12,11 +12,13 @@ import java.util.UUID;
 public class LivroDomain {
     private UUID id;
     private String titulo;
+    private PessoaDomain pessoaDomain;
     public LivroDomain() {
     }
-    public LivroDomain(UUID id, String titulo) {
+    public LivroDomain(UUID id, String titulo, PessoaDomain pessoaDomain) {
         this.id = id;
         this.titulo = titulo;
+        this.pessoaDomain = pessoaDomain;
     }
     public UUID getId() {
         return id;
@@ -30,4 +32,11 @@ public class LivroDomain {
     public void setTitulo(String titulo) {
         this.titulo = titulo;
     }
+    public PessoaDomain getPessoaDomain() {
+        return pessoaDomain;
+    }
+    public void setPessoaDomain(PessoaDomain pessoaDomain) {
+        this.pessoaDomain = pessoaDomain;
+    }
+
 }
