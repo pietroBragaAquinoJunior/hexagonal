@@ -52,5 +52,12 @@ public class PessoaPersistencePortImpl implements PessoaPersistencePort {
         return pessoaDomain;
     }
 
+    @Override
+    public PessoaDomain findByIdWithViagens(UUID pessoaId) {
+        PessoaEntity pessoaEntity = pessoaJpaRepository.findByIdWithViagens(pessoaId).orElseThrow(()-> new RecursoNaoEncontradoException("Não foi possível encontrar a Pessoa."));
+        PessoaDomain pessoaDomain = pessoaMapper.toPessoaDomain(pessoaEntity);
+        return pessoaDomain;
+    }
+
     
 }

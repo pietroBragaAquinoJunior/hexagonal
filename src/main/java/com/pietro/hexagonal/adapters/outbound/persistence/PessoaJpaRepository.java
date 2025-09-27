@@ -12,4 +12,7 @@ public interface PessoaJpaRepository extends JpaRepository<PessoaEntity, UUID> {
     @Query("select p from PessoaEntity p join fetch p.livros where p.id = :pessoaId")
     Optional<PessoaEntity> findByIdWithLivros(UUID pessoaId);
 
+    @Query("select p from PessoaEntity p join fetch p.viagens where p.id = :pessoaId")
+    Optional<PessoaEntity> findByIdWithViagens(UUID pessoaId);
+
 }

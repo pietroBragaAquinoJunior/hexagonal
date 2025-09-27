@@ -11,13 +11,13 @@ import com.pietro.hexagonal.core.ports.PessoaServicePort;
 
 import jakarta.validation.Valid;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
 
-import org.springframework.web.bind.annotation.GetMapping;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -36,13 +36,8 @@ public class PessoaController {
 
     @GetMapping
     public ResponseEntity<List<PessoaResponseDto>> listarPessoas() {
-        // if(true){
-        //     throw new MinhaExcecaoCustom("Essa é minha exceção customizada!, O handler colocará o Status adequado. Não se afobe...");
-        // }
         List<PessoaDomain> pessoaDomainList = pessoaServicePort.findAll();
-        List<PessoaResponseDto> pessoaResponseDtos = pessoaDomainList.stream()
-                                                    .map(pessoaDomain -> pessoaMapper.toPessoaResponseDto(pessoaDomain))
-                                                    .toList();
+        List<PessoaResponseDto> pessoaResponseDtos = pessoaDomainList.stream().map(pessoaDomain -> pessoaMapper.toPessoaResponseDto(pessoaDomain)).toList();
         return ResponseEntity.ok(pessoaResponseDtos);
     }
 
@@ -51,7 +46,7 @@ public class PessoaController {
         PessoaDomain pessoaDomain = pessoaMapper.toPessoaDomain(pessoaRequestDto);
         PessoaDomain pessoaDomainSaved = pessoaServicePort.savePessoa(pessoaDomain);
         PessoaResponseDto pessoaResponseDto = pessoaMapper.toPessoaResponseDto(pessoaDomainSaved);
-        return ResponseEntity.ok(pessoaResponseDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(pessoaResponseDto);
     }
 
 
@@ -70,6 +65,16 @@ public class PessoaController {
     }
 
     // PODERIA SER FEITO DO JEITO ERRADO, LEIA O README (JEITO ERRADO COM PROJEÇÃO / INTERFACE E RETORNAR ISSO DIRETAMENTE.)
+    
+
+
+    // OUTRO MÉTODO IMPORTANTE, COMO FAZER DA MANEIRA CORRETA (EVITANDO N+1, CARREGANDO O DOMAIN COM VIAGENS E DEPOIS EXECUTANDO O CÁLCULO) ~ MANY TO MANY.
+    @GetMapping("/{pessoaId}/pontuacao-viagem")
+    public ResponseEntity<PontuacaoResponseDto> calcularPontuacaoViagem(@PathVariable UUID pessoaId) {
+        PontuacaoDomain pontuacaoDomain = pessoaServicePort.calcularPontuacaoViagem(pessoaId);
+        PontuacaoResponseDto pontuacaoResponseDto = pontuacaoMapper.toPontuacaoResponseDto(pontuacaoDomain);
+        return ResponseEntity.ok(pontuacaoResponseDto);
+    }
     
 
 }

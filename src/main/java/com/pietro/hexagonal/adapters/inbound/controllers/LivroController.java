@@ -35,9 +35,6 @@ public class LivroController {
 
     @GetMapping
     public ResponseEntity<List<LivroResponseDto>> listarLivros() {
-        // if(true){
-        //     throw new MinhaExcecaoCustom("Essa é minha exceção customizada!, O handler colocará o Status adequado. Não se afobe...");
-        // }
         List<LivroDomain> livroDomainList = livroServicePort.findAll();
         List<LivroResponseDto> livroResponseDtos = livroDomainList.stream()
                                                     .map(livroDomain -> livroMapper.toLivroResponseDto(livroDomain))

@@ -14,10 +14,14 @@ public interface PessoaMapper {
     PessoaResponseDto toPessoaResponseDto(PessoaDomain pessoaDomain);
     @Mapping(target = "id", ignore = true )
     @Mapping(target = "cpf", ignore = true )
+    @Mapping(target = "livros", ignore = true )
+     @Mapping(target = "viagens", ignore = true )
     PessoaDomain toPessoaDomain(PessoaResponseDto pessoaResponseDto);
     // Request - Domain
     PessoaRequestDto toPessoaRequestDto(PessoaDomain pessoaDomain);
     @Mapping(target = "id", ignore = true )
+    @Mapping(target = "livros", ignore = true )
+    @Mapping(target = "viagens", ignore = true )
     PessoaDomain toPessoaDomain(PessoaRequestDto pessoaRequestDto);
     // Entity - Domain
     @Mapping(target = "livros", ignore = true )

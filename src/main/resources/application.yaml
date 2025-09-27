@@ -1,14 +1,31 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
 spring:
-  data:
-    rest:
-      base-path: /api
+  application:
+    name: hexagonal
+
+  # Configuração do DataSource (H2 em memória)
   datasource:
-    url: jdbc:postgresql://localhost:5432/hexagonal_db
-    username: postgres
+    url: jdbc:h2:mem:hexagonaldb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
     password: 
+
+  # Console do H2 (para debug no navegador)
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  # Flyway
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+  # JPA com H2
   jpa:
     hibernate:
-      ddl-auto: update
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+      ddl-auto: none # vou deixar o flyway controlar tudo.

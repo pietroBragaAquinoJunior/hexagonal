@@ -15,4 +15,6 @@ public interface PessoaPersistencePort {
 
     PessoaDomain findByIdWithLivros(UUID pessoaId);
 
+    PessoaDomain findByIdWithViagens(UUID pessoaId);
+
 }

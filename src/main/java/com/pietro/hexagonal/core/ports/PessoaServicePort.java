@@ -15,4 +15,6 @@ public interface PessoaServicePort {
     List<PessoaDomain> findAll();
 
     PontuacaoDomain calcularPontuacao(UUID pessoaId);
+
+    PontuacaoDomain calcularPontuacaoViagem(UUID pessoaId);
 }

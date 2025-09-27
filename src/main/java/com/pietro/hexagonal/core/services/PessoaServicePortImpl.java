@@ -37,15 +37,22 @@ public class PessoaServicePortImpl implements PessoaServicePort {
     @Override
     public PontuacaoDomain calcularPontuacao(UUID pessoaId) {
         PessoaDomain pessoaDomain = pessoaPersistencePort.findByIdWithLivros(pessoaId);
-
         Integer pontuacao = 0;
-
         if(pessoaDomain.getLivros().isEmpty()){
             throw new RecursoNaoEncontradoException("Essa pessoa não possui livros.");
         }
-
         pontuacao = pessoaDomain.getLivros().size();
+        return new PontuacaoDomain(pontuacao);
+    }
 
+    @Override
+    public PontuacaoDomain calcularPontuacaoViagem(UUID pessoaId) {
+        PessoaDomain pessoaDomain = pessoaPersistencePort.findByIdWithViagens(pessoaId);
+        Integer pontuacao = 0;
+        if(pessoaDomain.getViagens().isEmpty()){
+            throw new RecursoNaoEncontradoException("Essa pessoa não possui viagens.");
+        }
+        pontuacao = pessoaDomain.getViagens().size();
         return new PontuacaoDomain(pontuacao);
     }
 }
