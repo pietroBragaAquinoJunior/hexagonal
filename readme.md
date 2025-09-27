@@ -1,6 +1,55 @@
-## Spring Boot + JPA + H2 + Arquitetura Hexagonal + Problema n+1 solução usando Join Fetch + Flyway com Migrations + Junit & Mockito + Global Handler para Exceções.
+# Spring Boot Rest API
+
+### 🛠️ Technologies
+
+- [x] **JPA**
+- [x] **H2**
+- [x] **Hexagonal Architecture**
+- [x] **Flyway for Migrations**
+- [x] **Junit & Mockito for Tests**
+- [x] **Global Handler for Exceptions**
+
+---
+
+### Author's Comments:
+
+```java
+💬
+System.out.println(" This project is one of the bests to show my knowledge and skills in building" +
+                   " robust backend applications with clean architecture! ")
+```
+
+```java
+💬
+System.out.println(" This project discusses the **N+1 problem** and demonstrates how to avoid it" +
+                   " by correctly utilizing **Join Fetch** for data retrieval. ")
+```
+
+### Images 📸
+
+### Ports and Adapters (Hexagonal) Architecture
+<img width="2774" height="1582" alt="image" src="https://github.com/user-attachments/assets/ba70620f-339d-444b-96d5-c37e809aa28e" />
+
+---
+### Global Exception Handling with ApiError Class
+<img width="1093" height="617" alt="image" src="https://github.com/user-attachments/assets/dc45f35b-20e9-4581-a4c2-3320da02acc8" />
+<img width="973" height="708" alt="image" src="https://github.com/user-attachments/assets/4824d5d5-bd93-4035-81a3-01fd95f1c08f" />
+
+---
+### Database Migrations using Flyway
+<img width="1154" height="286" alt="image" src="https://github.com/user-attachments/assets/1f8f223a-e8e5-4720-84b5-8246f718be1e" />
+
+---
+### Professional Mapping using MapStruct
+<img width="1131" height="657" alt="image" src="https://github.com/user-attachments/assets/55db70a6-3226-42dc-b8c4-1d762bab4f0b" />
+
+---
+### Solving the N+1 Problem using Join Fetch before Business Logic
+<img width="988" height="434" alt="image" src="https://github.com/user-attachments/assets/23e73f13-b188-42dc-86e3-b150a9e6f14e" />
+
+---
 
 
-![DOMAIN](https://github.com/pietroBragaAquinoJunior/hexagonal/assets/85259321/af1990ae-2c0b-4b1d-9a7f-e938e20bb450)
 
-<img width="1893" height="1003" alt="image" src="https://github.com/user-attachments/assets/98f31f02-9b0e-4ffb-be5b-f04fb0724edc" />
+
+
