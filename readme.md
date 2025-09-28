@@ -1,31 +1,19 @@
-# Spring Boot Rest API
+### Spring Boot Rest API: Clean Architecture & High Performance ⭐⭐⭐⭐⭐
 
-### 🛠️ Technologies
+🔗 [Link for Source Code](https://github.com/pietroBragaAquinoJunior/hexagonal)
 
-- [x] **JPA**
-- [x] **H2**
-- [x] **Hexagonal Architecture**
-- [x] **Flyway for Migrations**
-- [x] **Junit & Mockito for Tests**
-- [x] **Global Handler for Exceptions**
-- [x] **Spring Validator**
----
+⚙️ **Technologies & Practices**:
+- Frameworks: Spring Boot (Java), JPA, H2 Memory Database.
+- Architecture: Ports and Adapters (Hexagonal) Architecture, Clean Code Principles.
+- DevOps/Data: Flyway for Database Migrations.
+- Quality: Junit & Mockito for Unit/Integration Tests.
+- Robustness: Global Exception Handlers, Spring Validation.
 
-### Author's Comments:
+✨ **Why This Project Matters**
 
-```java
-💬
-System.out.println(" This project is one of the bests to show my knowledge and skills in building" +
-                   " robust backend applications with clean architecture! ")
-```
-
-```java
-💬
-System.out.println(" This project discusses the **N+1 problem** and demonstrates how to avoid it" +
-                   " by correctly utilizing **Join Fetch** for data retrieval. ")
-```
-
-### Images 📸
+This project serves as the **definitive template** for building a production-ready API focused on **scalability and maintainability**.
+It demonstrates a deep understanding of **Clean Architecture**, ensuring the **business logic remains fully isolated and testable**.
+Crucially, it showcases advanced JPA techniques, leveraging JOIN FETCH and optimized JPQL to **eliminate the notorious N+1 query problem**, guaranteeing high performance under load.
 
 ### Ports and Adapters (Hexagonal) Architecture
 <img width="2774" height="1582" alt="image" src="https://github.com/user-attachments/assets/ba70620f-339d-444b-96d5-c37e809aa28e" />
