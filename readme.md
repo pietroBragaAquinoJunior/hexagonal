@@ -1,7 +1,5 @@
 ### Spring Boot Rest API: Clean Architecture & High Performance ⭐⭐⭐⭐⭐
 
-🔗 [Link for Source Code](https://github.com/pietroBragaAquinoJunior/hexagonal)
-
 ⚙️ **Technologies & Practices**:
 - Frameworks: Spring Boot (Java), JPA, H2 Memory Database.
 - Architecture: Ports and Adapters (Hexagonal) Architecture, Clean Code Principles.
