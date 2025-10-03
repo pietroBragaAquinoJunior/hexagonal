@@ -13,13 +13,16 @@ public interface LivroMapper {
     // Response - Domain
     LivroResponseDto toLivroResponseDto(LivroDomain livroDomain);
     @Mapping(target = "id", ignore = true )
+    @Mapping(target = "pessoaDomain", ignore = true )
     LivroDomain toLivroDomain(LivroResponseDto livroResponseDto);
     // Request - Domain
     LivroRequestDto toLivroRequestDto(LivroDomain livroDomain);
     @Mapping(target = "id", ignore = true )
+    @Mapping(target = "pessoaDomain", ignore = true )
     LivroDomain toLivroDomain(LivroRequestDto livroRequestDto);
     // Entity - Domain
     @Mapping(target = "pessoa", ignore = true )
     LivroEntity toLivroEntity(LivroDomain livroDomain);
+    @Mapping(target = "pessoaDomain", ignore = true )
     LivroDomain toLivroDomain(LivroEntity livroEntity);
 }
