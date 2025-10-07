@@ -32,9 +32,9 @@
 
 ## ⏳ Live Status and Deployment
 
-| Status | Live Demo / Repository Link |
-| :--- | :--- |
-| 🚧 **In Development** | **[In Development](www.google.com)** |
+| Status       | Link |
+| :----------- | :--- |
+| ✅ finished (no deploy) | -    |
 
 ---
 
